@@ -23,15 +23,11 @@ CREATE TABLE IF NOT EXISTS golead_hosts (
     is_leader boolean
 )`
 
-func InitializeClient(username string, password string, db string, host string) {
+func InitializeClient(db *sqlx.DB) {
 	//Generate client UUID
 	UUID = uuid.New().String()
 
-	//Connect to db
-	DB, err := sqlx.Connect("postgres", "user="+username+" password="+password+" host="+host+" dbname="+db+" sslmode=disable")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	DB = db
 
 	//Migrate
 	DB.MustExec(schema)
