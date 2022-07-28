@@ -54,6 +54,10 @@ func updateHeartbeat() {
 	if err != nil {
 		log.Fatalln(err)
 	}
+	err = tx.Commit()
+	if err != nil {
+		log.Fatalln(err)
+	}
 }
 
 func electLeader() {
